@@ -12,10 +12,10 @@ public class SudokuBoard {
       this();
       try {
         Scanner console = new Scanner(new File(fileName));
-        for(int r = 0; r < 9; r++){
+        for(int r = 0; r < board[0].length; r++){
             if(console.hasNext()) {
             String line = console.next();
-            for(int c = 0; c < 9; c++) {
+            for(int c = 0; c < board[0].length; c++) {
                char value = line.charAt(c);
                if(value == '.') {
                   board[r][c] = 0;
