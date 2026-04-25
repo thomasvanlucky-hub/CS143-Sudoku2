@@ -1,4 +1,4 @@
-import java.util.*;
+   import java.util.*;
 import java.io.*;
 
 public class SudokuBoard {
@@ -31,13 +31,10 @@ public class SudokuBoard {
    }   
    
    public boolean isValid() {
-      for(int r = 0; r < board.length; r++) {
-         for(int c = 0; c < board[0].length; c++) {
-            if(board[r][c] > board.length) {               // 1st part
-               return false;
-            }
-         }
-      }
+      if(!checkNumbers()) 
+         return false;
+      if(!checkRow()) 
+         return false;
       
       for(int c = 0; c < board.length; c++) {
          
@@ -50,7 +47,7 @@ public class SudokuBoard {
       for(int r = 0; r < board.length; r++) {
          for(int c = 0; c < board[0].length; c++) {
             if(board[r][c] < 0 || board[r][c] > 9) {
-            return false;
+               return false;
             }
          }
       }
@@ -59,15 +56,35 @@ public class SudokuBoard {
    }
    
    private boolean checkRow() {
-      Set<Integer> set = new HashSet<>();
-   
       for(int r = 0; r < board.length; r++) {
-         set.add(r);
-         if(set.contains(r)) {
-            return false;
-         } 
+         Set<Integer> set = new HashSet<>();
+         for(int c = 0; c < board[0].length; c++) {
+            int val = board[r][c];
+            if(val != 0) {
+               if(set.contains(val)) 
+                  return false;
+               set.add(val);
+            }
+         }
       }
       
+      
+      return true;
+   }
+   
+   private boolean checkCol() {
+      for(int r = 0; r < board.length; r++) {
+         Set<Integer> set = new HashSet<>();
+         for(int c = 0; c < board[0].length; c++) {
+            int val = board[c][r];
+            if(val != 0) {
+               if(set.contains(val)) 
+                  return false;
+               set.add(val);
+            }
+         }
+      }
+   
       
       return true;
    }
