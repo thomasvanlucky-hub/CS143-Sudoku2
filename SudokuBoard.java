@@ -3,7 +3,7 @@ import java.io.*;
 
 public class SudokuBoard {
    private int[][] board;
-   
+
    public SudokuBoard() {
       board = new int[9][9];
    } 
@@ -28,8 +28,8 @@ public class SudokuBoard {
       } catch (FileNotFoundException e) {
          System.out.println("Error: File not found.");
       }
-   }   
-   
+   }
+
    public boolean isValid() {
       if(!checkNumbers()) 
          return false;
@@ -68,10 +68,10 @@ public class SudokuBoard {
          }
       }
       
-      
+   
       return true;
    }
-   
+  
    private boolean checkCol() {
       for(int r = 0; r < board.length; r++) {
          Set<Integer> set = new HashSet<>();
@@ -85,7 +85,6 @@ public class SudokuBoard {
          }
       }
    
-      
       return true;
    }
    
@@ -101,6 +100,33 @@ public class SudokuBoard {
                   set.add(val);
                }
             }  
+         }
+      }
+      
+      return true;
+   }
+   
+   public boolean isSolved() { 
+      if(!isValid()) 
+         return false;
+      
+      Map<Integer, Integer> map = new HashMap<>();
+      
+      for(int r = 0; r < board.length; r++) {
+         for(int c = 0; c < board[0].length; c++) {
+            int val = board[r][c];
+            
+            if(map.containsKey(val)) {
+               map.put(val, map.get(val) + 1);
+            } else {
+               map.put(val, 1);
+            }
+         }
+      }
+      
+      for(int num = 1; num <= 9; num++) {
+         if(!map.containsKey(num) || map.get(num) != 9) {  // this loop goes from 1-9 and checks if the map contains the number and the occurrences the number came up
+            return false;
          }
       }
       
