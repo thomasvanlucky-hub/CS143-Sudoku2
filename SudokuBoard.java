@@ -95,9 +95,11 @@ public class SudokuBoard {
             for(int r = 0; r < 3; r++) {
                for(int c = 0; c < 3; c++) {            // checks the first row, then first column of the box
                   int val = board[boxRow * 3 + r][boxCol * 3 + c];   // adds the value of the board at the location of [(if in the case box row 0 and row 1 of the box then (0*3+1))]
-                  if(set.contains(val)) 
-                     return false;
-                  set.add(val);
+                  if(val != 0) {  
+                     if(set.contains(val)) 
+                        return false;
+                     set.add(val);
+                  }
                }
             }  
          }
@@ -116,10 +118,12 @@ public class SudokuBoard {
          for(int c = 0; c < board[0].length; c++) {
             int val = board[r][c];
             
-            if(map.containsKey(val)) {
-               map.put(val, map.get(val) + 1);
-            } else {
-               map.put(val, 1);
+            if(val != 0) {
+               if(map.containsKey(val)) {
+                  map.put(val, map.get(val) + 1);
+               } else {
+                  map.put(val, 1);
+               }
             }
          }
       }
